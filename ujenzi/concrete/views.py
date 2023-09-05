@@ -56,7 +56,7 @@ def predict_strength(request):
             strength = MODEL.predict(input_df)
 
             return render(request, 'concrete/predict.html', {
-                'strength':strength, 'form': PredictForm()
+                'strength':strength[0], 'form': PredictForm()
                 })
     
     return render(request, 'concrete/predict.html', {
