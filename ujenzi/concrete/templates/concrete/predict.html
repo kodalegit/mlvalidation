@@ -1,0 +1,12 @@
+{% extends 'concrete/layout.html %}
+
+{% block body %}
+<form action="{% url 'predict' %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input class="btn btn-primary" type="submit" value="Predict">
+</form>
+{% if strength %}
+<p><strong>Predicted Concrete Compressive Strength: </strong>{{ strength }} MPa</p>
+{% endif %}
+{% endblock%}
