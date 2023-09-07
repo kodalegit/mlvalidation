@@ -7,6 +7,22 @@
   <input class="btn btn-primary" type="submit" value="Predict">
 </form>
 {% if strength %}
-<p><strong>Predicted Concrete Compressive Strength: </strong>{{ strength }} MPa</p>
+<p><strong>Predicted Concrete Compressive Strength: </strong><span id="predicted">{{ strength }}</span> MPa</p>
+<button id="saveprediction"><a href="{% url 'save_prediction' %}">Save Prediction</a></button>
 {% endif %}
+
+<form action="{% url 'save_prediction' %}" method="post" id="save_form" style="display: none;">
+  {% csrf_token %}
+  <div style="margin: 10px;" class="form-group">
+    <input autofocus class="form-control" type="text" name="description" placeholder="Description">
+  </div>
+  <div style="margin: 10px;" class="form-group">
+    <input class="form-control" type="date" id="timeField" name="time" placeholder="Time">
+  </div>
+  <div style="margin: 10px;" class="form-group">
+    <input autofocus class="form-control" type="text" name="strength" placeholder="Predicted Strength">
+  </div>
+</form>
+
+<div id="dashboard"></div>
 {% endblock%}

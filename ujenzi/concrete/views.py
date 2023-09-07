@@ -7,6 +7,7 @@ from django.urls import reverse
 from .models import User, Predictions
 import pickle
 import pandas as pd
+import json
 
 class PredictForm(forms.Form):
     cement = forms.FloatField(min_value=0, initial=0, label='Cement')
@@ -46,7 +47,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse(index))
+    return HttpResponseRedirect(reverse('index'))
 
 def registration(request):
     if request.method == 'POST':
@@ -69,7 +70,8 @@ def registration(request):
             })
         
         login(request, user)
-        return HttpResponseRedirect(reverse(index))
+        return HttpResponseRedirect(reverse('index'))
+    return render(request, 'concrete/register.html')
 
 
 
@@ -111,4 +113,24 @@ def predict_strength(request):
     return render(request, 'concrete/predict.html', {
         'form': PredictForm()
     })
+
+def save_prediction(request):
+    if request.method == 'POST':
+        content = json.loads(request.body)
+
+        # Update database with new entry
+        if content is not None:
+            strength = content['strength']
+            new_entry = Predictions(user_id=request.user, prediction=strength)
+            new_entry.save()
+
+            return HttpResponseRedirect(reverse('prediction'))
+
+        return HttpResponse(404)
+    
+    # Load all database entries for current user
+    user_samples = Predictions.objects.filter(user_id=request.user.id)
+
+    return JsonResponse(user_samples.serialize())
+
 
