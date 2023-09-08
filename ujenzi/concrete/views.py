@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.urls import reverse
@@ -114,6 +115,7 @@ def predict_strength(request):
         'form': PredictForm()
     })
 
+@csrf_exempt
 def save_prediction(request):
     if request.method == 'POST':
         content = json.loads(request.body)
@@ -130,7 +132,8 @@ def save_prediction(request):
     
     # Load all database entries for current user
     user_samples = Predictions.objects.filter(user_id=request.user.id)
+    serialized_samples = [sample.serialize() for sample in user_samples]
 
-    return JsonResponse(user_samples.serialize())
+    return JsonResponse({'samples': serialized_samples})
 
 

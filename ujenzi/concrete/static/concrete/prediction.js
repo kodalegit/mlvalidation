@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function(){
 
-    let savePrediction = document.querySelector('#saveprediction');
-    let saveForm = document.querySelector('#save_form');
-    let prediction = document.querySelector('#predicted');
+    const savePrediction = document.querySelector('#saveprediction');
+    const saveForm = document.querySelector('#save_form');
+    const prediction = document.querySelector('#predicted');
+    const strengthField = document.querySelector('#strengthField');
     const dashBoard = document.querySelector('#dashboard');
 
     savePrediction.addEventListener('click', function(){
@@ -11,28 +12,38 @@ document.addEventListener('DOMContentLoaded', function(){
         const currentDate = new Date().toISOString().split('T')[0];
         let timeField = document.querySelector('#timeField');
         timeField.value = currentDate;
+        strengthField.value = result;
+        console.log(result)
 
+    });
+
+    saveForm.onsubmit = (event) => {
+        event.preventDefault();
         // Update database with predicted value
-        fetch('save_prediction',{
+        fetch('save',{
             method: 'POST',
             body: JSON.stringify({
                 strength: result
             })
         }).then(() => {
             // Display updated database entries
-            fetch('save_prediction')
+            fetch('save')
             .then(res => res.json())
             .then(sample => {
-                const entry = document.createElement('p');
-                entry.innerHTML = `${sample.description} has strength ${sample.prediction}`;
-                dashBoard.appendChild(entry);
+                console.log(sample)
+                sample.samples.forEach(item => {
+                    const entry = document.createElement('p');
+                    entry.innerHTML = `${item.description} has strength ${item.prediction}`;
+                    dashBoard.appendChild(entry);
+                });
+                
             }).catch(err => {
                 console.error(err);
             })
         }).catch(err => {
             console.error(err);
         })
-    })
+    }
 
 
 
