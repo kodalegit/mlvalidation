@@ -107,14 +107,14 @@ def predict_strength(request):
 
             strength = MODEL.predict(input_df)
 
-            return render(request, 'concrete/predict.html', {
-                'strength':strength[0], 'form': PredictForm()
-                })
+            # return render(request, 'concrete/predict.html', {
+            #     'strength':strength[0], 'form': PredictForm()
+            #     })
+            return JsonResponse({'prediction':strength[0]})
     
     return render(request, 'concrete/predict.html', {
         'form': PredictForm()
     })
-
 @csrf_exempt
 def save_prediction(request):
     if request.method == 'POST':

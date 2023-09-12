@@ -39,7 +39,7 @@ WEBPACK_LOADER = {
 
 INSTALLED_APPS = [
     'concrete',
-    #'webpack-loader',
+    'webpack_loader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

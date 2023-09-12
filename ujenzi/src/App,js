@@ -1,0 +1,47 @@
+import { useState } from 'react';
+
+// Child component containing prediction
+function DisplayPrediction({ prediction }) {
+    return (
+    <span><strong>Predicted Compressive Strength: </strong>{prediction}</span>
+    );
+}
+
+export default function App(){
+    const [prediction, setPrediction] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Gather form data and submit
+        const formData = new FormData(e.target);
+
+        // Make POST request to backend to obtain strength prediction
+        const response = await fetch('prediction', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        setPrediction(data.prediction);
+
+    };
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="cement">Cement: <input type="text" name='cement' /></label>
+                <label htmlFor="age">Age: <input type="text" name='age' /></label>
+                <label htmlFor="water">Water: <input type="text" name='water' /></label>
+                <label htmlFor="slag">Slag: <input type="text" name='slag' /></label>
+                <label htmlFor="ash">Ash: <input type="text" name='ash' /></label>
+                <label htmlFor="coarseaggr">Coarse Aggregate: <input type="text" name='coarseaggr' /></label>
+                <label htmlFor="fine">Fine Aggregate: <input type="text" name='fine' /></label>
+                <label htmlFor="superplasticizer">Superplasticizer: <input type="text" name='superplasticizer' /></label>
+                <button type='submit'>Predict</button>
+            </form>
+            {prediction !== null && <DisplayPrediction prediction={prediction} />}
+        </>
+        
+    );
+}

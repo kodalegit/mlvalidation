@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'static/concrete/js'),
+    path: path.resolve(__dirname, '/static/concrete/js'),
   },
   module: {
     rules: [
