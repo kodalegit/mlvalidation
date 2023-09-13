@@ -1,4 +1,5 @@
 {% extends 'concrete/layout.html' %}
+{% load static %}
 
 {% block body %}
 <div id="react-root"></div>
@@ -27,3 +28,7 @@
   <input class="btn btn-primary" type="submit" value="Save">
 </form> -->
 {% endblock%}
+
+{% block script %}
+<script src="{% static 'concrete/js/bundle.js' %}"></script>
+{% endblock %}
