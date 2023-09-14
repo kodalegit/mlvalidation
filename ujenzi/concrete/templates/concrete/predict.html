@@ -2,14 +2,17 @@
 {% load static %}
 
 {% block body %}
+<div id="results_form">
+  <form action="{% url 'predict' %}" id = "predict_form" method="post" onsubmit="submitForm(event)">
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary" type="submit" value="Predict">
+  </form>
+</div>
+
 <div id="react-root"></div>
 
-<!-- <form action="{% url 'predict' %}" method="post">
-  {% csrf_token %}
-  {{ form }}
-  <input class="btn btn-primary" type="submit" value="Predict">
-</form>
-{% if strength %}
+<!-- {% if strength %}
 <p><strong>Predicted Concrete Compressive Strength: </strong><span id="predicted">{{ strength }}</span> MPa</p>
 <button id="saveprediction"><a href="{% url 'save_prediction' %}">Save Prediction</a></button>
 {% endif %}
@@ -27,8 +30,9 @@
   </div>
   <input class="btn btn-primary" type="submit" value="Save">
 </form> -->
-{% endblock%}
+{% endblock %}
 
 {% block script %}
-<script src="{% static 'concrete/js/bundle.js' %}"></script>
+<!-- <script src="{% static 'concrete/js/bundle.js' %}"></script> -->
+<script src="{% static 'concrete/prediction.js' %}"></script>
 {% endblock %}

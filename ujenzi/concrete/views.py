@@ -106,15 +106,17 @@ def predict_strength(request):
             input_df = pd.DataFrame(data)
 
             strength = MODEL.predict(input_df)
+            float_strength = float(strength[0])
 
-            # return render(request, 'concrete/predict.html', {
-            #     'strength':strength[0], 'form': PredictForm()
-            #     })
-            return JsonResponse({'prediction':strength[0]})
+            return JsonResponse({'prediction':float_strength})
     
     return render(request, 'concrete/predict.html', {
         'form': PredictForm()
     })
+
+def get_csrf_token(request):
+    return JsonResponse({'csrfToken': str(request.COOKIES.get('csrftoken'))})
+
 @csrf_exempt
 def save_prediction(request):
     if request.method == 'POST':

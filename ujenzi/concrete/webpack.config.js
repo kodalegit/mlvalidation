@@ -1,11 +1,12 @@
 const path = require('path');
+const webpack = require("webpack");
 
 module.exports = {
-    mode: 'development',
+  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '/static/concrete/js'),
+    path: path.resolve(__dirname, 'static/concrete/js'),
   },
   module: {
     rules: [
@@ -19,8 +20,23 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
+  optimization: {
+    minimize: true,
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("development"),
+      },
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -28,4 +44,5 @@ module.exports = {
     contentBase: './templates/concrete',
     hot: true,
   },
+  watch: true,
 };
