@@ -128,7 +128,7 @@ def save_prediction(request):
             new_entry = Predictions(user_id=request.user, prediction=strength)
             new_entry.save()
 
-            return HttpResponseRedirect(reverse('prediction'))
+            return JsonResponse({'message':'Data saved successfully'}, status=201)
 
         return HttpResponse(404)
     
