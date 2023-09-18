@@ -2,13 +2,15 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import SaveForm from './SaveForm';
 import SavePredictionBtn from './SavePredictionBtn';
+import PredictForm from './PredictForm';
+import { DisplayPrediction } from './DisplayPrediction';
 
 
 export default function App(){
     const [strength, setStrength] = useState(0);
     const [showForm, setShowForm] = useState(false);
     const [showButton, setShowButton] = useState(true);
-    const [csrfToken, setCsrfToken] = useState('');
+    const [csrfToken, setCsrfToken] = useState('');     
 
     // Obtain csrf token for form submission
     useEffect(() => {
@@ -18,29 +20,57 @@ export default function App(){
         .catch((error) => console.error(error));
     }, []);
 
-    useEffect(() => {
-        const displayedResult = document.querySelector('#displayStrength');
-        if (displayedResult) {
-            const value = displayedResult.getAttribute('data-strength');
-            setStrength(value); 
+    // useEffect(() => {
+    //     const displayedResult = document.querySelector('#displayStrength');
+    //     if (displayedResult) {
+    //         const value = displayedResult.getAttribute('data-strength');
+    //         setStrength(value); 
+    //     }
+    // });
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+
+        //Gather form data
+        const concreteInfo = new FormData(e.target);
+        const responseBody = Object.fromEntries(concreteInfo);
+
+        // Fetch strength prediction from backend
+        let response = await fetch('predict', {
+            method: 'POST',
+            body: JSON.stringify(responseBody),
+            headers: {
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrfToken,
+            }
+        });
+
+        if (response.ok){
+            const predictedStrength = await response.json();
+            setStrength(predictedStrength.prediction)
         }
-    });
+        else{
+            console.error('Failed to fetch strength prediction. Response status:', response.status)
+        }              
+     
+    }
 
     const handleInitialSave = () => {
         setShowButton(false);
         setShowForm(true);
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmission = async (e) => {
         e.preventDefault();
 
         // Gather form data
         const formData = new FormData(e.target);
+        const respBody = Object.fromEntries(formData);
 
         // Post to backend database and save
         const response = await fetch('save', {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(respBody),
             headers: {
                 'Content-Type':'application/json',
                 'X-CSRFToken':csrfToken,
@@ -61,7 +91,9 @@ export default function App(){
 
     return (
         <div>
-            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmit={handleSubmit}/>}
+            <PredictForm onSubmit={onSubmit}/>
+            {strength !== null && <DisplayPrediction strength={strength} />}
+            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission}/>}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave}/>}
         </div>
 
