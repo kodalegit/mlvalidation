@@ -78,20 +78,19 @@ def registration(request):
 
 def predict_strength(request):
     if request.method == 'POST':
+        try:
+            
+            data = json.loads(request.body)
 
-        input_parameters = PredictForm(request.POST)
+            cement = data.get('cement', 0)
+            age = data.get('age', 0)
+            water = data.get('water', 0)
+            slag = data.get('slag', 0)
+            ash = data.get('ash', 0)
+            coarseaggr = data.get('coarseaggr', 0)
+            fine = data.get('fine', 0)
+            superplasticizer = data.get('superplasticizer', 0)
 
-        if input_parameters.is_valid():
-            # Process input parameters for model prediction
-            cement = input_parameters.cleaned_data['cement']
-            age = input_parameters.cleaned_data['age']
-            water = input_parameters.cleaned_data['water']
-            slag = input_parameters.cleaned_data['slag']
-            ash = input_parameters.cleaned_data['ash']
-            coarseaggr = input_parameters.cleaned_data['coarseaggr']
-            fine = input_parameters.cleaned_data['fine']
-            superplasticizer = input_parameters.cleaned_data['superplasticizer']
-    
             data = {
                 'cement': [cement],
                 'slag' : [slag],
@@ -109,7 +108,9 @@ def predict_strength(request):
             float_strength = float(strength[0])
 
             return JsonResponse({'prediction':float_strength})
-    
+        except json.JSONDecodeError:
+            return JsonResponse({'error':'Invalid JSON data'}, status=400)
+
     return render(request, 'concrete/predict.html', {
         'form': PredictForm()
     })
@@ -120,17 +121,22 @@ def get_csrf_token(request):
 @csrf_exempt
 def save_prediction(request):
     if request.method == 'POST':
-        content = json.loads(request.body)
+        try:
+            content = json.loads(request.body)
 
-        # Update database with new entry
-        if content is not None:
-            strength = content['strength']
-            new_entry = Predictions(user_id=request.user, prediction=strength)
-            new_entry.save()
+            # Update database with new entry
+            if content is not None:
+                strength = content['strength']
+                description = content['description']
+                new_entry = Predictions(user_id=request.user, prediction=strength, description=description)
+                new_entry.save()
 
-            return JsonResponse({'message':'Data saved successfully'}, status=201)
+                return JsonResponse({'message':'Data saved successfully'}, status=201)
 
-        return HttpResponse(404)
+            return JsonResponse({'error':'Invalid request'}, status=400)
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'error':'Invalid JSON data'}, status=400)
     
     # Load all database entries for current user
     user_samples = Predictions.objects.filter(user_id=request.user.id)

@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 
 // Form that is used to save to edit entry and save to database
 function SaveForm({ strength, handleCancel, handleSubmission }){
-    form = useForm({
+    const form = useForm({
         defaultValues: {
             description: "",
-            strength: {strength},
+            strength: strength,
         },
         mode: 'OnBlur',
     });
@@ -14,7 +14,7 @@ function SaveForm({ strength, handleCancel, handleSubmission }){
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit(handleSubmission)} noValidate>
                 <label>Sample Description: <input
                 {...register('description', {
                     maxLength: 32,
@@ -34,7 +34,7 @@ function SaveForm({ strength, handleCancel, handleSubmission }){
                     },
                 })} 
                 type='number' name='strength'></input></label>
-                <input type='submit' value='Save' onClick={handleSubmit}></input>
+                <input type='submit' value='Save' ></input>
                 <button onClick={handleCancel}>Cancel</button>
             </form>
         </div>

@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block body %}
-<div id="results_form">
+<!-- <div id="results_form">
   <form action="{% url 'predict' %}" id = "predict_form" method="post" onsubmit="submitForm(event)">
     {% csrf_token %}
     {{ form }}
     <input class="btn btn-primary" type="submit" value="Predict">
   </form>
-</div>
+</div> -->
 
 <div id="react-root"></div>
 

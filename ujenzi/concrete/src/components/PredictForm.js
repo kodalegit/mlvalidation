@@ -4,16 +4,16 @@ import { useForm } from 'react-hook-form';
 // Predict form that submits to backend to obtain strength
 function PredictForm({ onSubmit }){
     // Set up react-hook-form
-    form = useForm({
+    const form = useForm({
         defaultValues: {
-            cement: 0,
-            age: 28,
-            water: 0,
-            ash: 0, 
-            fine: 0,
-            coarseaggr: 0,
-            superplasticizer: 0,
-            slag: 0,
+            cement: '0',
+            age: '28',
+            water: '0',
+            ash: '0', 
+            fine: '0',
+            coarseaggr: '0',
+            superplasticizer: '0',
+            slag: '0',
         },
         mode: "OnBlur"
     });
@@ -21,21 +21,21 @@ function PredictForm({ onSubmit }){
 
     return (
         <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-                <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                {/* <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} /> */}
                 <label htmlFor="cement">Cement: <input
                 {...register('cement', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='cement' id='cement' /></label>
+                 type="text" name='cement' id='cement' /></label>
                  <p className='error'>{errors.cement?.message}</p>
                 <label htmlFor="age">Age: <input
                 {...register('age', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -49,11 +49,11 @@ function PredictForm({ onSubmit }){
                         message: 'Age cannot exceed 365',
                     },
                 })}
-                 type="number" name='age' id='age' /></label>
+                 type="text" name='age' id='age' /></label>
                  <p className='error'>{errors.age?.message}</p>
                 <label htmlFor="water">Water: <input
                 {...register('water', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -63,53 +63,53 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.water?.message}</p>
                 <label htmlFor="coarseaggr">Coarse Aggregate: <input
                 {...register('coarseaggr', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='coarseaggr' id='coarseaggr' /></label>
+                 type="text" name='coarseaggr' id='coarseaggr' /></label>
                  <p className='error'>{errors.coarseaggr?.message}</p>
                 <label htmlFor="fine">Fine Aggregate: <input
                 {...register('fine', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='fine' id='fine'/></label>
+                 type="text" name='fine' id='fine'/></label>
                  <p className='error'>{errors.fine?.message}</p>
                 <label htmlFor="slag">Slag: <input
                 {...register('slag', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='slag' id='slag' /></label>
+                 type="text" name='slag' id='slag' /></label>
                  <p className='error'>{errors.slag?.message}</p>
                 <label htmlFor="ash">Ash: <input
                 {...register('ash', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='ash' id='ash' /></label>
+                 type="text" name='ash' id='ash' /></label>
                  <p className='error'>{errors.ash?.message}</p>
                 <label htmlFor="superplasticizer">Superplasticizer: <input
                 {...register('superplasticizer', {
-                    valueAsNumber: true,
+                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='superplasticizer' id='superplasticizer' /></label>
+                 type="text" name='superplasticizer' id='superplasticizer' /></label>
                  <p className='error'>{errors.superplasticizer?.message}</p>
                 <button type='submit'>Predict</button>
             </form>
