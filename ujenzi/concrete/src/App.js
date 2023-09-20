@@ -67,13 +67,13 @@ export default function App(){
                 }
             });
 
-            const data = await response.json();
+            const res = await response.json();
 
             if (response.ok){
-                console.log(data.message)
+                console.log(res.message)
             }
             else{
-                console.error(data.error);
+                console.error(res.error);
             }
            
 
@@ -94,7 +94,7 @@ export default function App(){
         <div>
             <PredictForm onSubmit={onSubmit}/>
             {strength !== 0 && <DisplayPrediction strength={strength} />}
-            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} onSubmit={handleSubmission}/>}
+            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission}/>}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave}/>}
         </div>
 
