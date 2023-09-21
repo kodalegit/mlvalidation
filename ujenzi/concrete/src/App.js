@@ -3,14 +3,19 @@ import { useState, useEffect } from 'react';
 import SaveForm from './components/SaveForm';
 import SavePredictionBtn from './components/SavePredictionBtn';
 import PredictForm from './components/PredictForm';
+import SampleTable from './components/TableFull';
 import { DisplayPrediction } from './components/DisplayPrediction';
+import { Alert } from './components/Alert';
 
 
 export default function App(){
     const [strength, setStrength] = useState(0);
     const [showForm, setShowForm] = useState(false);
-    const [showButton, setShowButton] = useState(true);
-    const [csrfToken, setCsrfToken] = useState('');     
+    const [showButton, setShowButton] = useState(false);
+    const [csrfToken, setCsrfToken] = useState('');
+    const [message, setMessage] = useState('');
+    const [alert, setAlert] = useState(false);
+    const [samples, setSamples] = useState([]);
 
     // Obtain csrf token for form submission
     useEffect(() => {
@@ -20,8 +25,21 @@ export default function App(){
         .catch((error) => console.error(error));
     }, []);
 
+    // Load saved samples by user
+    useEffect(() => {
+        fetch('save')
+        .then(response => response.json())
+        .then(data => setSamples(data.samples))
+        .catch(error => console.error(error));
+    }, []);
+
     const onSubmit = async (data, event) => {
         event.preventDefault();
+
+        // Hide the form and alert and show the save prediction button when predicting
+        setShowForm(false);
+        setShowButton(true);
+        setAlert(false);
 
         try {
             // Fetch strength prediction from backend
@@ -36,14 +54,18 @@ export default function App(){
 
             if (response.ok){
                 const predictedStrength = await response.json();
-                setStrength(predictedStrength.prediction)
+                setStrength(predictedStrength.prediction);
             }
             else{
-                console.error('Failed to fetch strength prediction. Response status:', response.status)
+                console.error('Failed to fetch strength prediction. Response status:', response.status);
+                setMessage('Error fetching prediction. Log in and try again.');
+                setAlert(true);
             }
 
         } catch (err){
-            console.error('Encountered error: ', err)
+            console.error('Encountered error: ', err);
+            setMessage('Error fetching prediction. Try again.');
+            setAlert(true);
         }
                     
     }
@@ -55,6 +77,9 @@ export default function App(){
 
     const handleSubmission = async (data, e) => {
         e.preventDefault();
+
+        // Hide the form after saving prediction
+        setShowForm(false);
 
         // Post to backend database and save
         try {
@@ -71,24 +96,32 @@ export default function App(){
 
             if (response.ok){
                 console.log(res.message)
+
+                // Display success message to the user
+                setMessage('Save Successful');
+                setAlert(true);
             }
             else{
                 console.error(res.error);
+
+                // Display error message to the user
+                setMessage('Invalid request. Try again.');
+                setAlert(true);
             }
            
 
         } catch (err){
-            console.error('Encountered error: ', err)
+            console.error('Encountered error: ', err);
+            setMessage('Invalid request. Try again.');
+            setAlert(true);
         }     
 
-        setShowForm(false);
-        setShowButton(true);
     }
     
     const handleCancel = () => {
         setShowForm(false);
-        setShowButton(true);
     }
+
 
     return (
         <div>
@@ -96,6 +129,8 @@ export default function App(){
             {strength !== 0 && <DisplayPrediction strength={strength} />}
             {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission}/>}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave}/>}
+            {alert && <Alert message={message} />}
+            <SampleTable samples={samples} />
         </div>
 
     )

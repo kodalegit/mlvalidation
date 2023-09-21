@@ -126,7 +126,6 @@ def get_csrf_token(request):
     return JsonResponse({'csrfToken': str(request.COOKIES.get('csrftoken'))})
 
 
-@csrf_exempt
 def save_prediction(request):
     if request.method == 'POST':
         try:

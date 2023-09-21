@@ -22,10 +22,8 @@ function PredictForm({ onSubmit }){
     return (
         <div>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                {/* <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} /> */}
                 <label htmlFor="cement">Cement: <input
                 {...register('cement', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -35,7 +33,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.cement?.message}</p>
                 <label htmlFor="age">Age: <input
                 {...register('age', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -53,7 +50,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.age?.message}</p>
                 <label htmlFor="water">Water: <input
                 {...register('water', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -63,7 +59,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.water?.message}</p>
                 <label htmlFor="coarseaggr">Coarse Aggregate: <input
                 {...register('coarseaggr', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -73,7 +68,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.coarseaggr?.message}</p>
                 <label htmlFor="fine">Fine Aggregate: <input
                 {...register('fine', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -83,7 +77,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.fine?.message}</p>
                 <label htmlFor="slag">Slag: <input
                 {...register('slag', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -93,7 +86,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.slag?.message}</p>
                 <label htmlFor="ash">Ash: <input
                 {...register('ash', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
@@ -103,7 +95,6 @@ function PredictForm({ onSubmit }){
                  <p className='error'>{errors.ash?.message}</p>
                 <label htmlFor="superplasticizer">Superplasticizer: <input
                 {...register('superplasticizer', {
-                    //valueAsNumber: true,
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
