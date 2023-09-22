@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django import forms
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.urls import reverse
@@ -126,6 +127,7 @@ def get_csrf_token(request):
     return JsonResponse({'csrfToken': str(request.COOKIES.get('csrftoken'))})
 
 
+@login_required
 def save_prediction(request):
     if request.method == 'POST':
         try:

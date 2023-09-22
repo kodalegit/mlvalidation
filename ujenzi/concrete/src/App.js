@@ -64,7 +64,7 @@ export default function App(){
 
         } catch (err){
             console.error('Encountered error: ', err);
-            setMessage('Error fetching prediction. Try again.');
+            setMessage('Error fetching prediction. Log in and try again.');
             setAlert(true);
         }
                     
@@ -112,7 +112,7 @@ export default function App(){
 
         } catch (err){
             console.error('Encountered error: ', err);
-            setMessage('Invalid request. Try again.');
+            setMessage('Invalid request. Log in and try again.');
             setAlert(true);
         }     
 
