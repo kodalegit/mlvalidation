@@ -9,7 +9,7 @@ export default function SampleTable({ samples }){
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th>Time</th>
+                        <th>Date</th>
                         <th>Predicted Compressive Strength</th>
                     </tr>
                 </thead>
@@ -21,7 +21,7 @@ export default function SampleTable({ samples }){
                     return (
                     <SampleRow key={sample.id}
                     description={sample.description}
-                    time={sample.time}
+                    date={sample.date}
                     prediction={sample.prediction}
                     /> )
                 })
