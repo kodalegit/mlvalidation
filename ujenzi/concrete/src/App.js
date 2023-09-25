@@ -26,12 +26,20 @@ export default function App(){
     }, []);
 
     // Load saved samples by user
+    // useEffect(() => {
+    //     fetch('save')
+    //     .then(response => response.json())
+    //     .then(data => setSamples(data.samples))
+    //     .catch(error => console.error(error));
+    // }, []);
+
+    // Load saved samples by user any time a save is performed
     useEffect(() => {
         fetch('save')
         .then(response => response.json())
         .then(data => setSamples(data.samples))
         .catch(error => console.error(error));
-    }, []);
+    }, [handleSubmission]);
 
     const onSubmit = async (data, event) => {
         event.preventDefault();
@@ -57,8 +65,8 @@ export default function App(){
                 setStrength(predictedStrength.prediction);
             }
             else{
-                console.error('Failed to fetch strength prediction. Response status:', response.status);
-                setMessage('Error fetching prediction. Log in and try again.');
+                console.error('Failed to fetch strength prediction. Invalid request. Response status:', response.status);
+                setMessage('Error fetching prediction. Try again.');
                 setAlert(true);
             }
 

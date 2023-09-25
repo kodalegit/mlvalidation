@@ -15,27 +15,33 @@ function SaveForm({ strength, handleCancel, handleSubmission }){
     return (
         <div>
             <form onSubmit={handleSubmit(handleSubmission)} noValidate>
-                <label>Sample Description: <input
-                {...register('description', {
-                    maxLength: 32,
-                    pattern: {
-                    value: /^[a-zA-Z0-9\s]*$/,
-                    message: 'Description limited to 64 characters',
-                    },
-                })}
-                type='text' name='description'></input></label>
-                <p className='error'>{errors.description?.message}</p>
-                <label>Compressive Strength: <input
-                {...register('strength', {
-                    valueAsNumber: true,
-                    pattern: {
-                    value: /^[0-9]*$/,
-                    message: 'Only numeric values are allowed',
-                    },
-                })} 
-                type='number' name='strength'></input></label>
-                <input type='submit' value='Save' ></input>
-                <button onClick={handleCancel}>Cancel</button>
+                <div className='form-group'>
+                    <label>Sample Description: </label><input
+                    {...register('description', {
+                        maxLength: 32,
+                        pattern: {
+                        value: /^[a-zA-Z0-9\s]*$/,
+                        message: 'Description limited to 64 characters',
+                        },
+                    })}
+                    type='text' name='description' className='form-control'></input>
+                    <p className='error'>{errors.description?.message}</p>                
+                </div>
+                <div className='form-group'>
+                    <label>Compressive Strength(MPa): </label><input
+                    {...register('strength', {
+                        valueAsNumber: true,
+                        pattern: {
+                        value: /^[0-9]*$/,
+                        message: 'Only numeric values are allowed',
+                        },
+                    })} 
+                    type='number' name='strength' className='form-control'></input>
+                    <p className='error'>{errors.strength?.message}</p>
+                </div>
+                
+                <input type='submit' value='Save' className='btn btn-primary'></input>
+                <button onClick={handleCancel} className='btn btn-primary'>Cancel</button>
             </form>
         </div>
     )

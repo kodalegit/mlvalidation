@@ -21,17 +21,21 @@ function PredictForm({ onSubmit }){
 
     return (
         <div>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <label htmlFor="cement">Cement: <input
+        ` <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className='form-group'>
+              <label htmlFor="cement">Cement(kg/m<sup>3</sup>): </label><input
                 {...register('cement', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='cement' id='cement' /></label>
-                 <p className='error'>{errors.cement?.message}</p>
-                <label htmlFor="age">Age: <input
+                  type="number" name='cement' id='cement' className='form-control' />
+              <p className='error'>{errors.cement?.message}</p>
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor="age">Age(days): </label><input
                 {...register('age', {
                     pattern: {
                       value: /^[0-9]*$/,
@@ -46,64 +50,84 @@ function PredictForm({ onSubmit }){
                         message: 'Age cannot exceed 365',
                     },
                 })}
-                 type="text" name='age' id='age' /></label>
-                 <p className='error'>{errors.age?.message}</p>
-                <label htmlFor="water">Water: <input
+                  type="number" name='age' id='age' className='form-control' />
+              <p className='error'>{errors.age?.message}</p>
+            </div>                            
+
+            <div className='form-group'>
+              <label htmlFor="water">Water(kg/m<sup>3</sup>): </label><input
                 {...register('water', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="number" name='water' id='water' /></label>
-                 <p className='error'>{errors.water?.message}</p>
-                <label htmlFor="coarseaggr">Coarse Aggregate: <input
+                  type="number" name='water' id='water' className='form-control' />
+              <p className='error'>{errors.water?.message}</p>            
+            </div>                
+
+            <div className='form-group'>
+              <label htmlFor="coarseaggr">Coarse Aggregate(kg/m<sup>3</sup>): </label><input
                 {...register('coarseaggr', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='coarseaggr' id='coarseaggr' /></label>
-                 <p className='error'>{errors.coarseaggr?.message}</p>
-                <label htmlFor="fine">Fine Aggregate: <input
+                type="number" name='coarseaggr' id='coarseaggr' className='form-control' />
+              <p className='error'>{errors.coarseaggr?.message}</p>            
+            </div>                
+
+            <div className='form-group'>
+              <label htmlFor="fine">Fine Aggregate(kg/m<sup>3</sup>): </label><input
                 {...register('fine', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='fine' id='fine'/></label>
-                 <p className='error'>{errors.fine?.message}</p>
-                <label htmlFor="slag">Slag: <input
+                type="number" name='fine' id='fine' className='form-control' />
+              <p className='error'>{errors.fine?.message}</p>            
+            </div>                
+
+            <div className='form-group'>
+              <label htmlFor="slag">Slag(kg/m<sup>3</sup>): </label><input
                 {...register('slag', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='slag' id='slag' /></label>
-                 <p className='error'>{errors.slag?.message}</p>
-                <label htmlFor="ash">Ash: <input
+                type="number" name='slag' id='slag' className='form-control' />
+              <p className='error'>{errors.slag?.message}</p>            
+            </div>                
+
+            <div className='form-group'>
+              <label htmlFor="ash">Ash(kg/m<sup>3</sup>): </label><input
                 {...register('ash', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='ash' id='ash' /></label>
-                 <p className='error'>{errors.ash?.message}</p>
-                <label htmlFor="superplasticizer">Superplasticizer: <input
+                type="number" name='ash' id='ash' className='form-control' />
+              <p className='error'>{errors.ash?.message}</p>
+            </div>                
+
+            <div className='form-group'>
+              <label htmlFor="superplasticizer">Superplasticizer(kg/m<sup>3</sup>): </label><input
                 {...register('superplasticizer', {
                     pattern: {
                       value: /^[0-9]*$/,
                       message: 'Only numeric values are allowed',
                     },
                 })}
-                 type="text" name='superplasticizer' id='superplasticizer' /></label>
-                 <p className='error'>{errors.superplasticizer?.message}</p>
-                <button type='submit'>Predict</button>
-            </form>
+                type="number" name='superplasticizer' id='superplasticizer' className='form-control' />
+              <p className='error'>{errors.superplasticizer?.message}</p>            
+            </div>                
+
+            <button type='submit' className='btn btn-primary'>Predict</button>
+          </form>
         </div>
     );
 }
