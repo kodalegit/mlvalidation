@@ -21,11 +21,11 @@ function SaveForm({ strength, handleCancel, handleSubmission }){
                         maxLength: 32,
                         pattern: {
                         value: /^[a-zA-Z0-9\s]*$/,
-                        message: 'Description limited to 64 characters',
+                        message: 'Description limited to 32 characters',
                         },
                     })}
-                    type='text' name='description' className='form-control'></input>
-                    <p className='error'>{errors.description?.message}</p>                
+                    type='text' name='description' className={`form-control ${errors.description && 'is-invalid'}`}></input>
+                    <div className='invalid-feedback'>{errors.description?.message}</div>                
                 </div>
                 <div className='form-group'>
                     <label>Compressive Strength(MPa): </label><input
@@ -33,11 +33,11 @@ function SaveForm({ strength, handleCancel, handleSubmission }){
                         valueAsNumber: true,
                         pattern: {
                         value: /^[0-9]*$/,
-                        message: 'Only numeric values are allowed',
+                        message: 'Only positive numeric values are allowed',
                         },
                     })} 
-                    type='number' name='strength' className='form-control'></input>
-                    <p className='error'>{errors.strength?.message}</p>
+                    type='number' name='strength' className={`form-control ${errors.strength && 'is-invalid'}`}></input>
+                    <div className='invalid-feedback'>{errors.strength?.message}</div>
                 </div>
                 
                 <input type='submit' value='Save' className='btn btn-primary'></input>
