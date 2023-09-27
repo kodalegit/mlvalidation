@@ -1,6 +1,10 @@
 {% extends 'concrete/layout.html' %}
 
 {% block body %}
-<p>Let's build!</p>
-<a href="{% url 'predict' %}">Predict</a>
+<div class="content">
+    <p>Let's build!</p>
+    <button class="btn btn-primary" ><a href="{% url 'predict' %}">Predict</a></button>
+    
+</div>
+       
 {% endblock %}
