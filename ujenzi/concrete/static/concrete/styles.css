@@ -2,13 +2,13 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
-
-.transparent-navbar {
-    background-color: transparent !important; 
-    border: none !important;
+.title{
+    font-family: 'Merriweather', sans-serif;
+    font-weight: 700;
 }
-
 .form-container{
     display: flex;
     flex-direction: column;
@@ -37,7 +37,7 @@ html, body {
 }
 
 .blur-overlay {
-    background-color: rgba(0, 0, 0, 0.5); 
+    background: linear-gradient(90deg, rgba(213,244,249,0.9248074229691877) 0%, rgba(196,235,249,0.6951155462184874) 50%, rgba(206,241,252,0.5998774509803921) 75%, rgba(215,247,254,0.20211834733893552) 90%);
     position: absolute;
     top: 0;
     left: 0;
@@ -47,10 +47,9 @@ html, body {
 
 .content {
     position: relative;
-    z-index: 1;
     text-align: center;
     color: #0f0f0f;
-    padding: 50px;
+    padding: 20px;
 }
 
 .btn > a {
