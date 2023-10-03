@@ -1,27 +1,30 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
-.title{
+
+.title {
     font-family: 'Merriweather', sans-serif;
     font-weight: 700;
 }
-.form-container{
+
+.form-container {
     display: flex;
     flex-direction: column;
 }
 
-.background{
+.background {
     position: relative;
-    background-image: url('images/background.jpg');
+    background-image: url('images/background-min.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100%;
     overflow: auto;
-  
+
 }
 
 .background::before {
@@ -32,12 +35,12 @@ html, body {
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(2px);
-    
+    filter: blur(1px);
+
 }
 
 .blur-overlay {
-    background: linear-gradient(90deg, rgba(213,244,249,0.9248074229691877) 0%, rgba(196,235,249,0.6951155462184874) 50%, rgba(206,241,252,0.5998774509803921) 75%, rgba(215,247,254,0.20211834733893552) 90%);
+    background: linear-gradient(90deg, rgba(213, 244, 249, 0.9248074229691877) 0%, rgba(196, 235, 249, 0.6951155462184874) 50%, rgba(206, 241, 252, 0.5998774509803921) 75%, rgba(215, 247, 254, 0.20211834733893552) 90%);
     position: absolute;
     top: 0;
     left: 0;
@@ -52,7 +55,84 @@ html, body {
     padding: 20px;
 }
 
-.btn > a {
+.btn>a {
     color: white;
     text-decoration-line: none;
+}
+
+.samples-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.samples-table thead tr {
+    background: rgba(95, 100, 102, 0.695);
+    color: black;
+    text-align: left;
+}
+
+.samples-table caption {
+    background: rgba(18, 18, 19, 0.695);
+    font-weight: 700;
+}
+
+.samples-table thead th,
+.samples-table tbody td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.samples-table tbody tr {
+    border-bottom: 1px solid rgb(180, 177, 177);
+}
+
+.samples-table tbody tr:nth-of-type(even) {
+    background-color: rgb(193, 223, 243);
+}
+
+/* .table-container {
+    max-width: 100%;
+    overflow-x: scroll;
+} */
+
+@media (max-width: 400px) {
+    .samples-table th {
+        display: none;
+    }
+
+    .samples-table td {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: 20ch auto;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .samples-table td:first-child {
+        padding-top: 2rem;
+
+    }
+
+    .samples-table td:last-child {
+        padding-bottom: 2rem;
+
+    }
+
+    .samples-table td::before {
+        font-weight: 700;
+    }
+
+    .samples-table td:nth-of-type(1)::before {
+        content: "Description";
+    }
+
+    .samples-table td:nth-of-type(2)::before {
+        content: "Date";
+    }
+
+    .samples-table td:nth-of-type(3)::before {
+        content: "Predicted Strength";
+    }
 }

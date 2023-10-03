@@ -29,17 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'concrete/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
-}
-
 INSTALLED_APPS = [
     'concrete',
-    'webpack_loader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

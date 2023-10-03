@@ -1,0 +1,15 @@
+django
+scikitlearn==1.2.2
+sudo apt update
+sudo apt install nodejs
+sudo apt install npm
+in package.json directory: npm install
+## (Seems unnecessary-'static' works fine without running this pipeline)pip install django-webpack-loader
+pandas
+xgboost==1.7.6
+(For production to get latest version of node: 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+[close terminal and open again]
+[confirm installation with "command -v nvm]
+nvm install --lts
+)
