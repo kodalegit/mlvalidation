@@ -2,11 +2,11 @@ import React from 'react';
 import UndoButton from './UndoButton';
 import DeleteButton from './DeleteButton';
 
-export function SampleRow({ description, date, prediction, onDelete, deletedSample, handleUndo }) {
+export function SampleRow({ description, date, prediction, id, onDelete, deletedSample, handleUndo }) {
     return (
 
-        deletedSample ? (
-            <tr> <td colSpan="4">Sample deleted. <UndoButton handleUndo={handleUndo} /></td></tr>
+        deletedSample && deletedSample.id === id ? (
+            <tr><td colSpan="4">Sample deleted. <UndoButton handleUndo={handleUndo} /></td></tr>
         ) : (
             <tr>
                 <td>{description}</td>

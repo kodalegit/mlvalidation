@@ -18,8 +18,9 @@ export default function SampleTable({ samples, onDelete }) {
 
 
     const handleDelete = (id) => {
+        setUndo(false);
         // Log that a sample has been deleted
-        const sampleToDelete = samples.find((sample) => { sample.id === id });
+        const sampleToDelete = samples.find((sample) => sample.id === id);
         setDeletedSample(sampleToDelete);
 
         const undoTimeout = setTimeout(() => {
@@ -27,10 +28,13 @@ export default function SampleTable({ samples, onDelete }) {
                 onDelete(id);
                 setDeletedSample(null);
             }
+            else {
+                // Clear the timeout if undo is clicked
+                return () => clearTimeout(undoTimeout);
+            }
         }, 5000);
 
-        // Clear the timeout if undo is clicked
-        return () => clearTimeout(undoTimeout);
+
 
     };
 
@@ -57,9 +61,7 @@ export default function SampleTable({ samples, onDelete }) {
                         samples.map(sample => {
                             return (
                                 <SampleRow key={sample.id}
-                                    description={sample.description}
-                                    date={sample.date}
-                                    prediction={sample.prediction}
+                                    {...sample}
                                     onDelete={() => { handleDelete(sample.id) }}
                                     deletedSample={deletedSample}
                                     handleUndo={handleUndo}
