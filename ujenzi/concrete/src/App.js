@@ -8,7 +8,7 @@ import { DisplayPrediction } from './components/DisplayPrediction';
 import { Alert } from './components/Alert';
 
 
-export default function App(){
+export default function App() {
     const [strength, setStrength] = useState(0);
     const [showForm, setShowForm] = useState(false);
     const [showButton, setShowButton] = useState(false);
@@ -20,26 +20,19 @@ export default function App(){
     // Obtain csrf token for form submission
     useEffect(() => {
         fetch('csrf')
-        .then((response) => response.json())
-        .then((data) => setCsrfToken(data.csrfToken))
-        .catch((error) => console.error(error));
+            .then((response) => response.json())
+            .then((data) => setCsrfToken(data.csrfToken))
+            .catch((error) => console.error(error));
     }, []);
 
     // Load saved samples by user
-    // useEffect(() => {
-    //     fetch('save')
-    //     .then(response => response.json())
-    //     .then(data => setSamples(data.samples))
-    //     .catch(error => console.error(error));
-    // }, []);
-
-    // Load saved samples by user any time a save is performed
     useEffect(() => {
         fetch('save')
-        .then(response => response.json())
-        .then(data => setSamples(data.samples))
-        .catch(error => console.error(error));
-    }, [handleSubmission]);
+            .then(response => response.json())
+            .then(data => setSamples(data.samples))
+            .catch(error => console.error(error));
+    }, []);
+
 
     const onSubmit = async (data, event) => {
         event.preventDefault();
@@ -55,27 +48,27 @@ export default function App(){
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
-                    'Content-Type':'application/json',
-                    'X-CSRFToken':csrfToken,
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
                 }
             });
 
-            if (response.ok){
+            if (response.ok) {
                 const predictedStrength = await response.json();
                 setStrength(predictedStrength.prediction);
             }
-            else{
+            else {
                 console.error('Failed to fetch strength prediction. Invalid request. Response status:', response.status);
                 setMessage('Error fetching prediction. Try again.');
                 setAlert(true);
             }
 
-        } catch (err){
+        } catch (err) {
             console.error('Encountered error: ', err);
             setMessage('Error fetching prediction. Log in and try again.');
             setAlert(true);
         }
-                    
+
     }
 
     const handleInitialSave = () => {
@@ -95,50 +88,82 @@ export default function App(){
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
-                    'Content-Type':'application/json',
-                    'X-CSRFToken':csrfToken,
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
                 }
             });
 
             const res = await response.json();
 
-            if (response.ok){
-                console.log(res.message)
+            if (response.ok) {
+                console.log(res.message);
+
+                //Update saved samples
+                setSamples(res.samples);
 
                 // Display success message to the user
                 setMessage('Save Successful');
                 setAlert(true);
             }
-            else{
+            else {
                 console.error(res.error);
 
                 // Display error message to the user
                 setMessage('Invalid request. Try again.');
                 setAlert(true);
             }
-           
 
-        } catch (err){
+
+        } catch (err) {
             console.error('Encountered error: ', err);
             setMessage('Invalid request. Log in and try again.');
             setAlert(true);
-        }     
+        }
 
     }
-    
+
     const handleCancel = () => {
         setShowForm(false);
     }
 
+    // Delete entry from database
+    const onDelete = async (id) => {
+        try {
+            const response = await fetch(`delete/${id}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                }
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(data.message);
+                setSamples(data.samples);
+            }
+            else {
+                console.error(data.error);
+
+                // Display error message to the user
+                setMessage('Deletion failed. Try again.');
+                setAlert(true);
+            }
+
+        } catch (error) {
+            console.error('Encountered error: ', err);
+            setMessage('Request failed. Try again.');
+            setAlert(true);
+        }
+    };
 
     return (
         <div>
-            <PredictForm onSubmit={onSubmit}/>
+            <PredictForm onSubmit={onSubmit} />
             {strength !== 0 && <DisplayPrediction strength={strength} />}
-            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission}/>}
-            {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave}/>}
+            {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission} />}
+            {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave} />}
             {alert && <Alert message={message} />}
-            <SampleTable samples={samples} />
+            <SampleTable samples={samples} onDelete={onDelete} />
         </div>
 
     )
