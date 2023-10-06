@@ -5,7 +5,7 @@ import DeleteButton from './DeleteButton';
 export function SampleRow({ description, date, prediction, id, onDelete, deletedSample, handleUndo }) {
     return (
 
-        deletedSample && deletedSample.id === id ? (
+        deletedSample && deletedSample.includes(id) ? (
             <tr><td colSpan="4">Sample deleted. <UndoButton handleUndo={handleUndo} /></td></tr>
         ) : (
             <tr>

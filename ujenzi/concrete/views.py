@@ -166,3 +166,7 @@ def delete_entry(request, sample_id):
             {"samples": serialized_samples, "message": "Entry successfully deleted"}
         )
     return HttpResponseRedirect(reverse("index"))
+
+
+def documentation(request):
+    return render(request, "concrete/documentation.html")

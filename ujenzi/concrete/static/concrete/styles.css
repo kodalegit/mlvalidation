@@ -136,3 +136,21 @@ body {
         content: "Predicted Strength";
     }
 }
+
+#docs-container {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#tableOfContents {
+    width: 200px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#docs {
+    flex: 1;
+    padding: 20px;
+}

@@ -2,46 +2,39 @@ import React, { useEffect, useState } from 'react';
 import { SampleRow } from './TableRow';
 
 export default function SampleTable({ samples, onDelete }) {
-    const [deletedSample, setDeletedSample] = useState(null);
-    const [undo, setUndo] = useState(false);
+    const [deletedSample, setDeletedSample] = useState([]);
 
-    // useEffect(() => {
-    //     // If a sample has been deleted, provide the undo button for 5 seconds
-    //     if (deletedSample) {
-    //         const undoTimeout = setTimeout(() => {
-    //             setDeletedSample(null);
-    //         }, 5000);
+    useEffect(() => {
+        // If a sample has been deleted, provide the undo button for 3 seconds
+        const undoTimeout = setTimeout(() => {
+            if (deletedSample) {
+                deletedSample.forEach(sampleId => {
+                    onDelete(sampleId);
+                });
 
-    //         return () => clearTimeout(undoTimeout);
-    //     }
-    // }, [deletedSample]);
+                // Clear the deletedSample array after processing deletions
+                setDeletedSample([]);
+
+            }
+        }, 3000);
+
+        return () => clearTimeout(undoTimeout);
+
+    }, [deletedSample]);
 
 
     const handleDelete = (id) => {
-        setUndo(false);
         // Log that a sample has been deleted
         const sampleToDelete = samples.find((sample) => sample.id === id);
-        setDeletedSample(sampleToDelete);
-
-        const undoTimeout = setTimeout(() => {
-            if (!undo) {
-                onDelete(id);
-                setDeletedSample(null);
-            }
-            else {
-                // Clear the timeout if undo is clicked
-                return () => clearTimeout(undoTimeout);
-            }
-        }, 5000);
-
-
+        setDeletedSample(samplesToDelete => [...samplesToDelete, sampleToDelete.id]);
 
     };
 
-    const handleUndo = () => {
-        setUndo(true);
-        setDeletedSample(null);
-    }
+    const handleUndo = (id) => {
+        // Update deleted samples array to exclude the undone sample
+        setDeletedSample((samplesToDelete) => samplesToDelete.filter((sampleId) => sampleId !== id));
+    };
+
     return (
         <div className='table-container'>
             <h3>Samples</h3>
@@ -64,7 +57,7 @@ export default function SampleTable({ samples, onDelete }) {
                                     {...sample}
                                     onDelete={() => { handleDelete(sample.id) }}
                                     deletedSample={deletedSample}
-                                    handleUndo={handleUndo}
+                                    handleUndo={() => { handleUndo(sample.id) }}
                                 />)
                         })
                     )}
