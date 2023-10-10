@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SampleRow } from './TableRow';
 
-export default function SampleTable({ samples, onDelete }) {
+export default function SampleTable({ samples, onDelete, currentPage, totalPages, handlePageChange }) {
     const [deletedSample, setDeletedSample] = useState([]);
 
     useEffect(() => {
@@ -35,6 +35,10 @@ export default function SampleTable({ samples, onDelete }) {
         setDeletedSample((samplesToDelete) => samplesToDelete.filter((sampleId) => sampleId !== id));
     };
 
+    const changePage = (newPage) => {
+        handlePageChange(newPage);
+    };
+
     return (
         <div className='table-container'>
             <h3>Samples</h3>
@@ -63,6 +67,16 @@ export default function SampleTable({ samples, onDelete }) {
                     )}
                 </tbody>
             </table>
+            <ul className='pagination'>
+                {(currentPage > 1) && (
+                    <li className='page-item'><a className='page-link' style={{ cursor: 'pointer' }} onClick={() => changePage(currentPage - 1)}>Previous</a></li>
+                )}
+                <li className='page-item'><a className='page-link' style={{ cursor: 'pointer' }} onClick={() => changePage(1)}>1</a></li>
+                {(totalPages > currentPage) && (
+                    <li className='page-item'><a className='page-link' style={{ cursor: 'pointer' }} onClick={() => changePage(currentPage + 1)}>Next</a></li>
+                )}
+                <li className='page-item'><a className='page-link' style={{ cursor: 'pointer' }} onClick={() => changePage(totalPages)}>Last</a></li>
+            </ul>
         </div>
     );
 }

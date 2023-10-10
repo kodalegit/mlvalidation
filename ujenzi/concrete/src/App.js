@@ -16,6 +16,8 @@ export default function App() {
     const [message, setMessage] = useState('');
     const [alert, setAlert] = useState(false);
     const [samples, setSamples] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Obtain csrf token for form submission
     useEffect(() => {
@@ -27,11 +29,14 @@ export default function App() {
 
     // Load saved samples by user
     useEffect(() => {
-        fetch('save')
+        fetch(`save?page=${currentPage}`)
             .then(response => response.json())
-            .then(data => setSamples(data.samples))
+            .then(data => {
+                setSamples(data.samples)
+                setTotalPages(data.total_pages)
+            })
             .catch(error => console.error(error));
-    }, []);
+    }, [currentPage]);
 
 
     const onSubmit = async (data, event) => {
@@ -100,6 +105,7 @@ export default function App() {
 
                 //Update saved samples
                 setSamples(res.samples);
+                setTotalPages(res.total_pages);
 
                 // Display success message to the user
                 setMessage('Save Successful');
@@ -140,6 +146,7 @@ export default function App() {
             if (response.ok) {
                 console.log(data.message);
                 setSamples(data.samples);
+                setTotalPages(data.total_pages);
             }
             else {
                 console.error(data.error);
@@ -156,6 +163,10 @@ export default function App() {
         }
     };
 
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
     return (
         <div>
             <PredictForm onSubmit={onSubmit} />
@@ -163,7 +174,7 @@ export default function App() {
             {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission} />}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave} />}
             {alert && <Alert message={message} />}
-            <SampleTable samples={samples} onDelete={onDelete} />
+            <SampleTable samples={samples} onDelete={onDelete} handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages} />
         </div>
 
     )
