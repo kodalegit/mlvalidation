@@ -12,11 +12,6 @@ body {
     font-weight: 700;
 }
 
-.form-container {
-    display: flex;
-    flex-direction: column;
-}
-
 .background {
     position: relative;
     background-image: url('images/background-min.jpg');
@@ -35,7 +30,7 @@ body {
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(1px);
+    /* filter: blur(1px); */
 
 }
 
@@ -52,7 +47,7 @@ body {
     position: relative;
     text-align: center;
     color: #0f0f0f;
-    padding: 20px;
+    padding: 1.2rem;
 }
 
 .btn>a {
@@ -62,7 +57,7 @@ body {
 
 .samples-table {
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 1.6em 0;
     font-size: 0.9em;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
@@ -81,7 +76,7 @@ body {
 
 .samples-table thead th,
 .samples-table tbody td {
-    padding: 12px 15px;
+    padding: 0.875em 1em;
     text-align: left;
 }
 
@@ -137,20 +132,51 @@ body {
     }
 }
 
+#documentation-page {
+    position: relative;
+}
+
 #docs-container {
     display: flex;
+    position: relative;
     margin: 0;
     padding: 0;
+    text-align: left;
+    line-height: 2;
 }
 
 #tableOfContents {
-    width: 200px;
-    padding: 20px;
-    background-color: #f4f4f4;
+    width: 30%;
+    padding: 1.2em;
+    background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 #docs {
     flex: 1;
-    padding: 20px;
+    padding: 1.2em;
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    #docs-container {
+        flex-direction: column-reverse;
+    }
+
+    #tableOfContents {
+        width: 100%;
+        order: 1;
+    }
+
+    #docs {
+        flex: 1;
+        padding: 1.2em;
+        order: 2;
+    }
+}
+
+#docs img {
+    max-width: 100%;
+    height: auto;
 }

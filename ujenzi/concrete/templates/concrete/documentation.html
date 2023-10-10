@@ -1,19 +1,258 @@
-{% extends 'concrete/layout.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-<div class="content">
-    <div id="docs-container">
-        <div id="tableOfContents">
-            <h2>Table of contents</h2>
-            <ul>
-                <li><a href="#section1"></a></li>
-            </ul>
-        </div>
-        <div id="docs">
-            <h2 id="section1">Section 1</h2>
-            <p></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ujenzi{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Raleway:wght@300;400&family=Roboto:ital,wght@0,300;0,400;0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'concrete/styles.css' %}">
+</head>
+
+<body>
+    <div id="documentation-page">
+        <div class="blur-overlay"></div>
+        <nav class="navbar navbar-expand-lg bg-transparent">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'index' %}"> Ujenzi</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        {% if not user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'predict' %}">Predict</a>
+                        <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="docs-container">
+            <div id="docs">
+                <h2 class="docsh2" id="background">Background</h2>
+                <h3 class="docsh3" id="understandingML">Understanding Machine Learning</h3>
+                <p>Machine Learning is a field of artificial intelligence that empowers computers to learn and make
+                    decisions without being explicitly programmed.
+                    There are various machine learning algorithms, broadly categorized into supervised and unsupervised
+                    learning.
+                    In supervised learning, a model learns from labeled training data, while unsupervised learning
+                    involves
+                    finding patterns in data without explicit labels.</p>
+                <h3 class="docsh3" id="decision-trees">Decision Trees and Boosting Algorithms</h3>
+                <p>Decision trees are a fundamental concept in machine learning.
+                    They are flowchart-like structures where each node represents a decision based on a particular
+                    feature.
+                    Boosting algorithms, like XGBoost, enhance the predictive power of decision trees. They work by
+                    combining weak learners to create a strong predictive model.
+                    XGBoost, in particular, has proven effective in various applications due to its speed and
+                    performance.
+                </p>
+
+                <h2 class="docsh2" id="problem-definition">Problem Definition</h2>
+                <h3 class="docsh3" id="predict-concrete">Predicting Concrete Compressive Strength</h3>
+                <p>This tool aims to predict the compressive strength of concrete based on input parameters such as
+                    cement,
+                    water, coarse aggregate, fine aggregate, fly ash, superplasticizer, blast furnace slag, and age.
+                    Compressive strength is influenced by various factors like cement content, water-to-cement ratio,
+                    and
+                    curing time.
+                    Machine learning models, including XGBoost Regressor, were trained to accurately predict concrete
+                    compressive strength.</p>
+
+                <h2 class="docsh2" id="data-collection">Data Collection</h2>
+                <h3 class="docsh3" id="data-source">Data Source</h3>
+                <p>The dataset used for training the models is sourced from the <a
+                        href="https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength">UCI Machine
+                        Learning
+                        Repository. </a>The dataset contains 1030 concrete data samples, each with the following input
+                    variables.
+                <ul>
+                    <li>Cement (kg/m<sup>3</sup>)</li>
+                    <li>Water (kg/m<sup>3</sup>)</li>
+                    <li>Coarse Aggregate (kg/m<sup>3</sup>)</li>
+                    <li>Fine Aggregate (kg/m<sup>3</sup>)</li>
+                    <li>Superplasticizer (kg/m<sup>3</sup>)</li>
+                    <li>Fly Ash (kg/m<sup>3</sup>)</li>
+                    <li>Blast Furnace Slag (kg/m<sup>3</sup>)</li>
+                    <li>Age (days)</li>
+                </ul>
+                The output variable is compressive Strength(MPa).
+                </p>
+
+                <h3 class="docsh3" id="data-distribution">Data Distribution</h3>
+                <p>
+                    The following chart illustrates the relative frequency distribution of each parameter in the
+                    dataset:
+                </p>
+                <img src="{% static 'concrete/images/distributions.png' %}" alt="Data distribution">
+                <h2 class="docsh2" id="model-selection">Model Selection and Evaluation</h2>
+                <h3 class="docsh3" id="xgboost">XGBoost Regressor</h3>
+                <p>
+                    The XGBoost Regressor was found to be the most accurate model for prediction of compressive strength
+                    of
+                    concrete.
+                    Model selection involved the hold-out method, and evaluation included tuning hyperparameters,
+                    accuracy
+                    analysis, and data validation using both hold-out and cross-validation techniques.
+                    The following are some of the metrics used to evaluate the model's performance:
+                <ul>
+                    <li><strong>R-squared:</strong> This is a measure of how well the model fits the data. It represents
+                        the
+                        proportion of the variance for a dependent variable that's explained by an independent
+                        variable(s)
+                        in a regression model. It ranges from 0 to 1, with higher values indicating a better fit.</li>
+                    <li><strong>Mean-squared Error(MSE):</strong> MSE is a measure of the average squared difference
+                        between
+                        the predicted and actual values. Lower values of MSE indicate a better fit.</li>
+                </ul>
+                </p>
+
+                <h2 class="docsh2" id="model-analysis">Model Analysis</h2>
+                <h3 class="docsh3" id="predict-distribution">Prediction Distribution</h3>
+                <p>
+                    The XGBoost Regressor achieved an impressive R-squared value of 0.96 and a mean-squared error of
+                    11.486
+                    MPa.
+                    The prediction distribution chart visualizes the relationship between true and predicted compressive
+                    strength.
+                </p>
+                <img src="{% static 'concrete/images/predictiondistXGB.png' %}" alt="Prediction distribution">
+                <h3 class="docsh3" id="correlation-coefficient">Correlation Coefficient Study</h3>
+                <p>
+                    A correlation coefficient study was performed on the input parameters.
+                    The range of the correlation coefficients indicates that the input parameters can be considered low
+                    to
+                    moderately correlated to compressive strength.
+                </p>
+                <img src="{% static 'concrete/images/heatmap.png' %}" alt="Correlation heatmap">
+                <h3 class="docsh3" id="feature-importances">Feature Importances</h3>
+                <p>
+                    An analysis of feature importances highlighted the dominant influence of age and cement content,
+                    constituting nearly 70% of importance.
+                </p>
+                <img src="{% static 'concrete/images/XGBoostfeatureimportances.png' %}" alt="Feature importances">
+
+                <h2 class="docsh2" id="challenges">Challenges</h2>
+                <h3 class="docsh3" id="deployment-bias">Deployment Bias</h3>
+                <p>While machine learning models show high accuracy in predicting laboratory concrete strength,
+                    uncertainties in field-placed concrete, influenced by variable environmental conditions and
+                    operational
+                    uncertainties during curing and construction, may affect prediction accuracy.
+                    Interpretation of results should consider data quality, and high-quality field data can enhance
+                    model
+                    accuracy in practical applications.
+                </p>
+                <h3 class="docsh3" id="interpretability">Interpretability</h3>
+                <p>Interpreting machine learning models poses challenges due to their complexity and ambiguity.
+                    Unlike traditional methods, machine learning identifies association relationships rather than causal
+                    relationships.
+                    In this particular model, while the model accurately predicts compressive strength from the input
+                    variables, there exists insufficient information about these variables. For example, concrete
+                    strength
+                    classes, characteristics of aggregate, properties of chemical admixtures, properties of cementitious
+                    materials and curing regimes are not captured by the input variables.
+                    Regardless, the machine learning model is able to learn the implicit underlying patterns and
+                    accurately
+                    predict compressive strength from the unobserved influence of some of these underlying factors.
+                    Results from this model should thus be interpreted as associations between concrete mix ratios and
+                    compressive strength rather than causations.
+                </p>
+                <h3 class="docsh3" id="data-sparsity">Data Sparsity and Quality</h3>
+                <p>
+                    The model is trained on 1030 sets of concrete samples, highlighting the need for high-quality field
+                    data
+                    to improve practical applications.
+                    Developing comprehensive data on field concrete characteristics is essential for enhancing model
+                    performance in real-world settings.
+                </p>
+
+                <h2 class="docsh3" id="conclusion">Conclusion</h2>
+                <p>
+                    While machine learning models like XGBoost Regressor offer powerful tools for predicting concrete
+                    compressive strength, users must be aware of deployment challenges, interpretability issues, and the
+                    importance of high-quality field data for real-world applications.
+                </p>
+
+                <h2 class="docsh3" id="references">References</h2>
+                <ol>
+                    <li>Zhanzhao Li et al. Machine learning in concrete science: applications, challenges, and best
+                        practices. <a href="https://www.nature.com/articles/s41524-022-00810-x#Sec3">Article</a></li>
+                    <li>Vimal Rathakrishnan et al. Predicting compressive strength of high-performance concrete with
+                        high
+                        volume ground granulated blast-furnace slag replacement using boosting machine learning
+                        algorithms.
+                        <a href="https://www.nature.com/articles/s41598-022-12890-2#Bib1">Article</a>
+                    </li>
+                    <li>Daihong Li et al. Machine Learning-Based Method for Predicting Compressive Strength of Concrete.
+                        <a
+                            href="https://www.mdpi.com/2227-9717/11/2/390#:~:text=Compared%20to%20traditional%20regression%20methods,25%2C26%2C27%5D.">Article</a>
+                    </li>
+                </ol>
+
+
+
+            </div>
+            <div id="tableOfContents">
+                <h2>Table of contents</h2>
+                <ul>
+                    <li><a href="#background">Background</a>
+                        <ul>
+                            <li><a href="#understandingML">Understanding Machine Learning</a></li>
+                            <li><a href="#decision-trees">Decision Trees and Boosting Algorithms</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#problem-definition">Problem Definition</a></li>
+                    <ul>
+                        <li><a href="#predict-concrete">Predicting Compressive Strength</a></li>
+                    </ul>
+                    <li><a href="#data-collection">Data Collection</a></li>
+                    <ul>
+                        <li><a href="#data-source">Data Source</a></li>
+                        <li><a href="#data-distribution">Data Distribution</a></li>
+                    </ul>
+                    <li><a href="#model-selection">Model Selection and Evaluation</a></li>
+                    <ul>
+                        <li><a href="#xgboost">XGBoost Regressor</a></li>
+                    </ul>
+                    <li><a href="#model-analysis">Model Analysis</a>
+                        <ul>
+                            <li><a href="#predict-distribution">Prediction Distribution</a></li>
+                            <li><a href="#correlation-coefficient">Correlation Coefficient Study</a></li>
+                            <li><a href="#feature-importances">Feature Importances</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#challenges">Challenges</a>
+                        <ul>
+                            <li><a href="#deployment-bias">Deployment Bias</a></li>
+                            <li><a href="#intepretability">Interpretability</a></li>
+                            <li><a href="#data-sparsity">Data Sparsity and Quality</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

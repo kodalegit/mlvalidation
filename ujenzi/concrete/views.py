@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.urls import reverse
 from .models import User, Predictions
@@ -146,10 +147,15 @@ def save_prediction(request):
             return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
     # Load all database entries for current user
-    user_samples = Predictions.objects.filter(user_id=request.user.id)
-    serialized_samples = [sample.serialize() for sample in user_samples]
+    user_samples = Predictions.objects.filter(user_id=request.user.id).order_by("-date")
+    paginator = Paginator(user_samples, 10)
+    page_number = request.GET.get("page")
+    page_samples = paginator.get_page(page_number)
+    serialized_samples = [sample.serialize() for sample in page_samples]
 
-    return JsonResponse({"samples": serialized_samples})
+    return JsonResponse(
+        {"samples": serialized_samples, "total_pages": paginator.num_pages}
+    )
 
 
 @login_required

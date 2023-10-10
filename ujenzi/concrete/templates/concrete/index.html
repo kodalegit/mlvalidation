@@ -3,13 +3,17 @@
 {% block body %}
 <div class="content">
     <p class="title">Welcome to Ujenzi!</p>
-    <p>Ujenzi is a platform that enables the use of machine learning to predict compressive strength of concrete from a number of input parameters without the need to wait for laboratory testing. The machine learning model is trained and validated using 1030 data samples. The model attains an R<sup>2</sup> value of 0.96 and a mean-squared error of 11.486 MPa.
-        View technical documentation for more details. <br>
-        Perform predictions on compressive strength by providing input parameters such as content of cement, water, coarse aggregate, fine aggregate, blast furnace slag, superplasticizer and fly ash.
+    <p>Ujenzi is a platform that enables the use of machine learning to predict compressive strength of concrete from a
+        number of input parameters without the need to wait for laboratory testing. The machine learning model is
+        trained and validated using 1030 data samples. The model attains an R<sup>2</sup> value of 0.96 and a
+        mean-squared error of 11.486 MPa.
+        View <a href="{% url 'documentation' %}">technical documentation</a> for more details. <br>
+        Perform predictions on compressive strength by providing input parameters such as content of cement, water,
+        coarse aggregate, fine aggregate, blast furnace slag, superplasticizer and fly ash.
     </p>
-        
-    <button class="btn btn-primary" ><a href="{% url 'predict' %}">Predict</a></button>
-    
+
+    <button class="btn btn-primary"><a href="{% url 'predict' %}">Predict</a></button>
+
 </div>
-       
+
 {% endblock %}

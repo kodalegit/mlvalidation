@@ -16,7 +16,7 @@ export default function SampleTable({ samples, onDelete }) {
                 setDeletedSample([]);
 
             }
-        }, 3000);
+        }, 5000);
 
         return () => clearTimeout(undoTimeout);
 
