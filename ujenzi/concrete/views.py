@@ -132,7 +132,7 @@ def save_prediction(request):
                 # Load all database entries for current user
                 user_samples = Predictions.objects.filter(
                     user_id=request.user.id
-                ).order_by("-date")
+                ).order_by("-time")
                 paginator = Paginator(user_samples, 10)
                 page_number = request.GET.get("page")
                 page_samples = paginator.get_page(page_number)
@@ -172,7 +172,7 @@ def delete_entry(request, sample_id):
 
         # Load all database entries for current user
         user_samples = Predictions.objects.filter(user_id=request.user.id).order_by(
-            "-date"
+            "-time"
         )
         paginator = Paginator(user_samples, 10)
         page_number = request.GET.get("page")

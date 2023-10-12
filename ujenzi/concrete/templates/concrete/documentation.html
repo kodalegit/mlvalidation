@@ -123,26 +123,33 @@
                 </p>
 
                 <h2 class="docsh2" id="model-analysis">Model Analysis</h2>
+
+                <h3 class="docsh3" id="correlation-coefficient">Correlation Coefficient Study</h3>
+                <p>
+                    A correlation coefficient study was performed on the input parameters.
+                    The range of the correlation coefficients indicates that the input parameters can be considered to
+                    have low to moderate correlations with each other. When two or more variables are highly correlated,
+                    they might carry similar information which can
+                    lead to instability, inflated importance for those variables and could also affect model
+                    generalization abilities.
+                </p>
+                <img src="{% static 'concrete/images/heatmap.png' %}" alt="Correlation heatmap">
+
                 <h3 class="docsh3" id="predict-distribution">Prediction Distribution</h3>
                 <p>
                     The XGBoost Regressor achieved an impressive R-squared value of 0.96 and a mean-squared error of
                     11.486
                     MPa.
-                    The prediction distribution chart visualizes the relationship between true and predicted compressive
+                    The prediction distribution chart visualizes the relationship between actual and predicted
+                    compressive
                     strength.
                 </p>
                 <img src="{% static 'concrete/images/predictiondistXGB.png' %}" alt="Prediction distribution">
-                <h3 class="docsh3" id="correlation-coefficient">Correlation Coefficient Study</h3>
-                <p>
-                    A correlation coefficient study was performed on the input parameters.
-                    The range of the correlation coefficients indicates that the input parameters can be considered low
-                    to
-                    moderately correlated to compressive strength.
-                </p>
-                <img src="{% static 'concrete/images/heatmap.png' %}" alt="Correlation heatmap">
+
                 <h3 class="docsh3" id="feature-importances">Feature Importances</h3>
                 <p>
-                    An analysis of feature importances highlighted the dominant influence of age and cement content,
+                    An analysis of feature importances highlighted the dominant influence of age and cement content on
+                    compressive strength,
                     constituting nearly 70% of importance.
                 </p>
                 <img src="{% static 'concrete/images/XGBoostfeatureimportances.png' %}" alt="Feature importances">

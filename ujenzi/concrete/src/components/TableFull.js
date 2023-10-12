@@ -67,7 +67,7 @@ export default function SampleTable({ samples, onDelete, currentPage, totalPages
                     )}
                 </tbody>
             </table>
-            <ul className='pagination'>
+            <ul className='pagination pagination-sm'>
                 {(currentPage > 1) && (
                     <li className='page-item'><a className='page-link' style={{ cursor: 'pointer' }} onClick={() => changePage(currentPage - 1)}>Previous</a></li>
                 )}

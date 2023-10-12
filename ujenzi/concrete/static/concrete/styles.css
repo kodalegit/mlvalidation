@@ -180,3 +180,47 @@ body {
     max-width: 100%;
     height: auto;
 }
+
+.font-awesome-delete,
+.font-awesome-undo {
+    background: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+}
+
+.font-awesome-delete>*:hover {
+    color: red;
+}
+
+.font-awesome-undo>*:hover {
+    color: green;
+}
+
+.font-awesome-delete:hover::before {
+    content: "Delete";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    display: block;
+}
+
+.font-awesome-undo:hover::before {
+    content: "Undo";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    display: block;
+}
