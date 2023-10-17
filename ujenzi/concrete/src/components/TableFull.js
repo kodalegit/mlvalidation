@@ -47,7 +47,7 @@ export default function SampleTable({ samples, onDelete, currentPage, totalPages
                     <tr>
                         <th>Description</th>
                         <th>Date</th>
-                        <th>Predicted Compressive Strength</th>
+                        <th>Predicted Compressive Strength(MPa)</th>
                         <th></th>
                     </tr>
                 </thead>

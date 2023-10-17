@@ -1,7 +1,7 @@
 import React from 'react';
 
-export function DisplayPrediction({ strength }){
+export function DisplayPrediction({ strength }) {
     return (
-        <p><strong>Predicted Compressive Strength: </strong>{strength} MPa</p>
+        <p className='react-components'><strong>Predicted Compressive Strength: </strong>{strength} MPa</p>
     );
 }

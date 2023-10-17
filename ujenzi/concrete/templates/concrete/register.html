@@ -1,18 +1,18 @@
-{% extends 'concrete/layout.html' %} 
+{% extends 'concrete/layout.html' %}
 
 {% block title %}Register{% endblock %}
 
-{% block body %} 
-<div class="container-fluid">
-    <div class="content">
+{% block body %}
+<div>
+    <div class="logins">
         <h3>Register</h3>
 
         {% if message %}
         <div class="message">{{ message }}</div>
         {% endif %}
-        
+
         <form action="{% url 'register' %}" method="post">
-            {% csrf_token %} 
+            {% csrf_token %}
             <div style="margin: 10px;" class="form-group">
                 <input class="form-control" autofocus type="text" name="username" placeholder="Username">
             </div>
@@ -27,8 +27,8 @@
             </div>
             <input class="btn btn-primary" type="submit" value="Register">
         </form>
-        
-        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+        <p>Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
     </div>
 </div>
 

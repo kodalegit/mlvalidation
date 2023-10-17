@@ -15,6 +15,7 @@ export default function App() {
     const [csrfToken, setCsrfToken] = useState('');
     const [message, setMessage] = useState('');
     const [alert, setAlert] = useState(false);
+    const [color, setColor] = useState('');
     const [samples, setSamples] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -65,12 +66,14 @@ export default function App() {
             else {
                 console.error('Failed to fetch strength prediction. Invalid request. Response status:', response.status);
                 setMessage('Error fetching prediction. Try again.');
+                setColor('red');
                 setAlert(true);
             }
 
         } catch (err) {
             console.error('Encountered error: ', err);
             setMessage('Error fetching prediction. Log in and try again.');
+            setColor('red');
             setAlert(true);
         }
 
@@ -109,6 +112,7 @@ export default function App() {
 
                 // Display success message to the user
                 setMessage('Save Successful');
+                setColor('green');
                 setAlert(true);
             }
             else {
@@ -116,6 +120,7 @@ export default function App() {
 
                 // Display error message to the user
                 setMessage('Invalid request. Try again.');
+                setColor('red');
                 setAlert(true);
             }
 
@@ -123,6 +128,7 @@ export default function App() {
         } catch (err) {
             console.error('Encountered error: ', err);
             setMessage('Invalid request. Log in and try again.');
+            setColor('red');
             setAlert(true);
         }
 
@@ -153,12 +159,14 @@ export default function App() {
 
                 // Display error message to the user
                 setMessage('Deletion failed. Try again.');
+                setColor('red');
                 setAlert(true);
             }
 
         } catch (error) {
             console.error('Encountered error: ', err);
             setMessage('Request failed. Try again.');
+            setColor('red');
             setAlert(true);
         }
     };
@@ -173,7 +181,7 @@ export default function App() {
             {strength !== 0 && <DisplayPrediction strength={strength} />}
             {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission} />}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave} />}
-            {alert && <Alert message={message} />}
+            {alert && <Alert color={color} message={message} />}
             <SampleTable samples={samples} onDelete={onDelete} handlePageChange={handlePageChange} currentPage={currentPage} totalPages={totalPages} />
         </div>
 

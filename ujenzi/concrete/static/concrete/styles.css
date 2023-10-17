@@ -7,9 +7,34 @@ body {
     font-weight: 400;
 }
 
-.title {
-    font-family: 'Merriweather', sans-serif;
+#landing-title {
+    font-family: 'Raleway', sans-serif;
     font-weight: 700;
+    font-size: 2.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    text-align: center;
+}
+
+@media (max-width:700px) {
+    #landing-title {
+        font-size: 1.75rem;
+    }
+}
+
+#landing-text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem;
+}
+
+.btn>a {
+    color: white;
+    text-decoration-line: none;
 }
 
 .background {
@@ -30,7 +55,7 @@ body {
     right: 0;
     bottom: 0;
     background: inherit;
-    /* filter: blur(1px); */
+    filter: blur(1px);
 
 }
 
@@ -43,16 +68,50 @@ body {
     height: 100%;
 }
 
-.content {
+.logins {
     position: relative;
     text-align: center;
-    color: #0f0f0f;
-    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.btn>a {
-    color: white;
-    text-decoration-line: none;
+.logins>* {
+    width: 50%;
+}
+
+.content {
+    position: relative;
+    color: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#react-root {
+    width: 80%;
+}
+
+.samples-table {
+    width: 100%;
+}
+
+form label {
+    padding: 0.25rem;
+}
+
+#send-prediction-btn {
+    margin-top: 0.5rem;
+}
+
+.alert {
+    padding: 0;
+}
+
+.table-container {
+    margin-top: 1.5rem;
 }
 
 .samples-table {
@@ -64,14 +123,9 @@ body {
 }
 
 .samples-table thead tr {
-    background: rgba(95, 100, 102, 0.695);
+    background: rgba(23, 128, 226, 0.695);
     color: black;
     text-align: left;
-}
-
-.samples-table caption {
-    background: rgba(18, 18, 19, 0.695);
-    font-weight: 700;
 }
 
 .samples-table thead th,
@@ -85,13 +139,8 @@ body {
 }
 
 .samples-table tbody tr:nth-of-type(even) {
-    background-color: rgb(193, 223, 243);
+    background-color: rgba(245, 250, 252, 0.712);
 }
-
-/* .table-container {
-    max-width: 100%;
-    overflow-x: scroll;
-} */
 
 @media (max-width: 400px) {
     .samples-table th {
@@ -130,6 +179,10 @@ body {
     .samples-table td:nth-of-type(3)::before {
         content: "Predicted Strength";
     }
+
+    #landing-title {
+        font-size: 1.25rem;
+    }
 }
 
 #documentation-page {
@@ -157,6 +210,16 @@ body {
     flex: 1;
     padding: 1.2em;
     font-weight: 300;
+}
+
+#docs h2 {
+    margin-top: 1.125rem;
+    margin-bottom: 1.125rem;
+}
+
+#docs h3 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 @media (max-width: 768px) {
@@ -194,7 +257,7 @@ body {
 }
 
 .font-awesome-undo>*:hover {
-    color: green;
+    color: rgb(12, 194, 12);
 }
 
 .font-awesome-delete:hover::before {
@@ -223,4 +286,19 @@ body {
     border-radius: 5px;
     font-size: 0.75rem;
     display: block;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.react-components {
+    animation: fadeIn 0.5s ease-in-out;
+    /* Apply the fadeIn animation over 0.5 seconds with ease-in-out timing function */
 }

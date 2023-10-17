@@ -6,7 +6,7 @@ export function SampleRow({ description, date, prediction, id, onDelete, deleted
     return (
 
         deletedSample && deletedSample.includes(id) ? (
-            <tr><td colSpan="4">Sample deleted. <button className='font-awesome-undo' onClick={handleUndo}><FontAwesomeIcon icon={faRotateLeft} /></button></td></tr>
+            <tr><td colSpan="3">Sample deleted. </td><td><button className='font-awesome-undo' onClick={handleUndo}><FontAwesomeIcon icon={faRotateLeft} /></button></td></tr>
         ) : (
             <tr>
                 <td>{description}</td>
