@@ -1,5 +1,5 @@
 django
-scikitlearn==1.2.2
+scikit-learn==1.2.2
 sudo apt update
 sudo apt install nodejs
 sudo apt install npm
