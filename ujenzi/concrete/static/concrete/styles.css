@@ -299,6 +299,6 @@ form label {
 }
 
 .react-components {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.35s ease-in-out;
     /* Apply the fadeIn animation over 0.5 seconds with ease-in-out timing function */
 }
