@@ -16,8 +16,6 @@ import json
 with open("xgb.pkl", "rb") as m:
     MODEL = pickle.load(m)
 
-# Create your views here.
-
 
 def index(request):
     return render(request, "concrete/index.html")
@@ -31,7 +29,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("predict"))
 
         else:
             return render(
@@ -69,10 +67,10 @@ def registration(request):
             )
 
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("predict"))
     return render(request, "concrete/register.html")
 
-
+@csrf_exempt
 def predict_strength(request):
     if request.method == "POST":
         try:
@@ -133,7 +131,7 @@ def save_prediction(request):
                 user_samples = Predictions.objects.filter(
                     user_id=request.user.id
                 ).order_by("-time")
-                paginator = Paginator(user_samples, 10)
+                paginator = Paginator(user_samples, 8)
                 page_number = request.GET.get("page")
                 page_samples = paginator.get_page(page_number)
                 serialized_samples = [sample.serialize() for sample in page_samples]
@@ -153,8 +151,8 @@ def save_prediction(request):
             return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
     # Load all database entries for current user
-    user_samples = Predictions.objects.filter(user_id=request.user.id).order_by("-date")
-    paginator = Paginator(user_samples, 10)
+    user_samples = Predictions.objects.filter(user_id=request.user.id).order_by("-time")
+    paginator = Paginator(user_samples, 8)
     page_number = request.GET.get("page")
     page_samples = paginator.get_page(page_number)
     serialized_samples = [sample.serialize() for sample in page_samples]
@@ -174,7 +172,7 @@ def delete_entry(request, sample_id):
         user_samples = Predictions.objects.filter(user_id=request.user.id).order_by(
             "-time"
         )
-        paginator = Paginator(user_samples, 10)
+        paginator = Paginator(user_samples, 8)
         page_number = request.GET.get("page")
         page_samples = paginator.get_page(page_number)
         serialized_samples = [sample.serialize() for sample in page_samples]

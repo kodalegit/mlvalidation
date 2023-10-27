@@ -40,10 +40,10 @@ function SaveForm({ strength, handleCancel, handleSubmission }) {
                     <div className='invalid-feedback'>{errors.strength?.message}</div>
                 </div>
 
-                <input type='submit' value='Save' className='btn btn-primary'></input>
-                <button onClick={handleCancel} className='btn btn-primary'>Cancel</button>
+                <input type='submit' value='Save' className='btn btn-success' style={{ marginTop: '0.4rem' }} ></input>
+                <button onClick={handleCancel} className='btn btn-danger' style={{ marginLeft: '0.4rem', marginTop: '0.4rem' }}>Cancel</button>
             </form>
-        </div>
+        </div >
     )
 }
 

@@ -21,7 +21,7 @@
     <div class="blur-overlay"></div>
     <nav class="navbar navbar-expand-lg bg-transparent">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'index' %}"> Ujenzi</a>
+        <a class="navbar-brand" id="ujenzi-title" href="{% url 'index' %}"> Ujenzi</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -31,6 +31,7 @@
             {% if not user.is_authenticated %}
             <a class="nav-link" href="{% url 'login' %}">Log In</a>
             <a class="nav-link" href="{% url 'register' %}">Register</a>
+            <a class="nav-link" href="{% url 'predict' %}">Predict</a>
             <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
             {% else %}
             <a class="nav-link" href="{% url 'predict' %}">Predict</a>
