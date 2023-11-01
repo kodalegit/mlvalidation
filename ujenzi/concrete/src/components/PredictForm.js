@@ -21,7 +21,7 @@ function PredictForm({ onSubmit }) {
 
   return (
     <div>
-      ` <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className='form-group'>
           <label htmlFor="cement">Cement(kg/m<sup>3</sup>): </label><input
             {...register('cement', {
