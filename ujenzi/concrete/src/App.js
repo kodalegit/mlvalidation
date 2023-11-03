@@ -6,6 +6,7 @@ import PredictForm from './components/PredictForm';
 import SampleTable from './components/TableFull';
 import { DisplayPrediction } from './components/DisplayPrediction';
 import { Alert } from './components/Alert';
+import LoadingBtn from './components/LoadingBtn';
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
     const [samples, setSamples] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     // Obtain csrf token for form submission
     useEffect(() => {
@@ -47,6 +49,7 @@ export default function App() {
         setShowForm(false);
         setShowButton(true);
         setAlert(false);
+        setLoading(true);
 
         try {
             // Fetch strength prediction from backend
@@ -60,10 +63,12 @@ export default function App() {
             });
 
             if (response.ok) {
+                setLoading(false);
                 const predictedStrength = await response.json();
                 setStrength(predictedStrength.prediction);
             }
             else {
+                setLoading(false);
                 console.error('Failed to fetch strength prediction. Invalid request. Response status:', response.status);
                 setMessage('Error fetching prediction. Try again.');
                 setColor('red');
@@ -178,6 +183,7 @@ export default function App() {
     return (
         <div>
             <PredictForm onSubmit={onSubmit} />
+            {loading && <LoadingBtn />}
             {strength !== 0 && <DisplayPrediction strength={strength} />}
             {showForm && <SaveForm strength={strength} handleCancel={handleCancel} handleSubmission={handleSubmission} />}
             {showButton && <SavePredictionBtn handleInitialSave={handleInitialSave} />}
