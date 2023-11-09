@@ -130,25 +130,19 @@ WSGI_APPLICATION = "ujenzi.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# [START db_setup]
-# [START gaestd_py_django_database_config]
-# Use django-environ to parse the connection string
-# DATABASES = {"default": env.db()}
-
-# # If the flag as been set, configure to use proxy
-# if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
-#     DATABASES["default"]["HOST"] = "127.0.0.1"
-#     DATABASES["default"]["PORT"] = 5432
-
-# [END gaestd_py_django_database_config]
-# [END db_setup]
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': env.db_url(
+        'DATABASE_URL',
+        default=f"postgresql://{os.environ.get('POSTGRESQL_ADDON_USER', '')}:{os.environ.get('POSTGRESQL_ADDON_PASSWORD', '')}@{os.environ.get('POSTGRESQL_ADDON_HOST', '')}:{os.environ.get('POSTGRESQL_ADDON_PORT', '')}/{os.environ.get('POSTGRESQL_ADDON_DB', '')}"
+    )
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 AUTH_USER_MODEL = "concrete.User"
 
