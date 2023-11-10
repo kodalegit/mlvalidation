@@ -112,6 +112,11 @@ form label {
     padding: 0;
 }
 
+.message {
+    color: red;
+    font-size: smaller;
+}
+
 .table-container {
     margin-top: 1.5rem;
 }
