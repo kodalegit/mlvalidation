@@ -132,8 +132,7 @@ WSGI_APPLICATION = "ujenzi.wsgi.application"
 
 DATABASES = {
     'default': env.db_url(
-        'DATABASE_URL',
-        default=f"postgresql://{os.environ.get('POSTGRESQL_ADDON_USER', '')}:{os.environ.get('POSTGRESQL_ADDON_PASSWORD', '')}@{os.environ.get('POSTGRESQL_ADDON_HOST', '')}:{os.environ.get('POSTGRESQL_ADDON_PORT', '')}/{os.environ.get('POSTGRESQL_ADDON_DB', '')}"
+        'DATABASE_URL'
     )
 }
 
