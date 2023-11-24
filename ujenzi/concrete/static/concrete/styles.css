@@ -36,7 +36,7 @@ body {
     }
 
     #landing-text {
-        font-size: 0.925rem;
+        font-size: 0.965rem;
     }
 }
 
@@ -96,7 +96,7 @@ body {
 }
 
 #react-root {
-    width: 90%;
+    width: 85%;
 }
 
 .samples-table {

@@ -133,7 +133,7 @@ export default function App() {
 
         } catch (err) {
             console.error('Encountered error: ', err);
-            setMessage('Invalid request. Log in and try again.');
+            setMessage('Invalid request. Make sure you are logged in and try again.');
             setColor('red');
             setAlert(true);
         }

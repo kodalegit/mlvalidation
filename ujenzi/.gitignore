@@ -1,0 +1,13 @@
+.env
+
+# static folder
+static/
+
+# installed node modules
+node_modules/
+
+*.pyc
+*.pyo
+__pycache__/
+
+.vscode/

@@ -19,15 +19,7 @@ body {
     font-size: 2.5rem;
     position: relative;
     display: flex;
-    justify-content: center;
-    width: 50%;
     text-align: center;
-}
-
-@media (max-width:700px) {
-    #landing-title {
-        font-size: 1.75rem;
-    }
 }
 
 #landing-text {
@@ -35,8 +27,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 3rem;
+    margin: 2rem;
 }
+
+@media (max-width:700px) {
+    #landing-title {
+        font-size: 1.75rem;
+    }
+
+    #landing-text {
+        font-size: 0.965rem;
+    }
+}
+
 
 .btn>a {
     color: white;
@@ -93,7 +96,7 @@ body {
 }
 
 #react-root {
-    width: 80%;
+    width: 85%;
 }
 
 .samples-table {
