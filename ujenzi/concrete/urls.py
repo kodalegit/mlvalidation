@@ -11,4 +11,5 @@ urlpatterns = [
     path("save", views.save_prediction, name="save_prediction"),
     path("csrf", views.get_csrf_token, name="csrf"),
     path("delete/<int:sample_id>", views.delete_entry, name="delete"),
+    path("contacts", views.contacts, name="contacts"),
 ]

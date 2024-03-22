@@ -232,6 +232,24 @@ form label {
     margin-bottom: 0.75rem;
 }
 
+#contacts {
+    position: relative;
+} 
+
+#contacts a {
+    text-decoration-line: none;
+}
+
+#contacts > p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+}
+
+#contacts a:hover{
+    color: blue;
+    text-decoration-line: underline;
+}
+
 @media (max-width: 768px) {
     #docs-container {
         flex-direction: column-reverse;

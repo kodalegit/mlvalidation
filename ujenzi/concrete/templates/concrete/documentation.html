@@ -34,9 +34,11 @@
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
                         <a class="nav-link" href="{% url 'predict' %}">Predict</a>
                         <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+                        <a class="nav-link" href="{% url 'contacts' %}">Contact Us</a>
                         {% else %}
                         <a class="nav-link" href="{% url 'predict' %}">Predict</a>
                         <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+                        <a class="nav-link" href="{% url 'contacts' %}">Contact Us</a>
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                         {% endif %}
                     </div>
@@ -78,7 +80,7 @@
                 <h2 class="docsh2" id="data-collection">Data Collection</h2>
                 <h3 class="docsh3" id="data-source">Data Source</h3>
                 <p>The dataset used for training the models is sourced from the <a
-                        href="https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength">UCI Machine
+                        href="https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength" target="_blank" rel="noopener">UCI Machine
                         Learning
                         Repository. </a>The dataset contains 1030 concrete data samples, each with the following input
                     variables.
@@ -200,16 +202,16 @@
                 <h2 class="docsh3" id="references">References</h2>
                 <ol>
                     <li>Zhanzhao Li et al. Machine learning in concrete science: applications, challenges, and best
-                        practices. <a href="https://www.nature.com/articles/s41524-022-00810-x#Sec3">Article</a></li>
+                        practices. <a href="https://www.nature.com/articles/s41524-022-00810-x#Sec3" target="_blank" rel="noopener">Article</a></li>
                     <li>Vimal Rathakrishnan et al. Predicting compressive strength of high-performance concrete with
                         high
                         volume ground granulated blast-furnace slag replacement using boosting machine learning
                         algorithms.
-                        <a href="https://www.nature.com/articles/s41598-022-12890-2#Bib1">Article</a>
+                        <a href="https://www.nature.com/articles/s41598-022-12890-2#Bib1" target="_blank" rel="noopener">Article</a>
                     </li>
                     <li>Daihong Li et al. Machine Learning-Based Method for Predicting Compressive Strength of Concrete.
                         <a
-                            href="https://www.mdpi.com/2227-9717/11/2/390#:~:text=Compared%20to%20traditional%20regression%20methods,25%2C26%2C27%5D.">Article</a>
+                            href="https://www.mdpi.com/2227-9717/11/2/390#:~:text=Compared%20to%20traditional%20regression%20methods,25%2C26%2C27%5D." target="_blank" rel="noopener">Article</a>
                     </li>
                 </ol>
 
