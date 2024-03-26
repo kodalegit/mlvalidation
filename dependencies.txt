@@ -14,3 +14,5 @@ nvm install --lts
 )
 
 (cut away .env outside root dir)
+use npx webpack to bundle react js then collectstatic before deployment
+gcloud app deploy --no-cache
