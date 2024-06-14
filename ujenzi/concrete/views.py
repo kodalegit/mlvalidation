@@ -189,6 +189,3 @@ def delete_entry(request, sample_id):
 
 def documentation(request):
     return render(request, "concrete/documentation.html")
-
-def contacts(request):
-    return render(request, "concrete/contacts.html")

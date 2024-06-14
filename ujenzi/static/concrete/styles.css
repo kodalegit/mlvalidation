@@ -48,6 +48,7 @@ body {
 
 .background {
     position: relative;
+    flex: 1;
 }
 
 .background::before {
@@ -345,4 +346,36 @@ form label {
 
 #showing-pages {
     font-size: 0.875rem;
+}
+
+#body-page{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(124, 124, 124);
+    text-align: center;
+    z-index: 10;
+    font-size: 0.875rem;
+    padding: 1rem 2rem 0 2rem;
+    background-color: rgba(223, 240, 248, 0.5);
+
+    
+}
+
+#svg-container{
+    display: flex;
+    gap: 1rem;
+}
+
+#svg-container .svg-icon svg {
+    fill: gray;
+    transition: fill 0.3s;
+}
+
+#svg-container .svg-icon:hover svg {
+    fill: black;
 }

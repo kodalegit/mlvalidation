@@ -19,36 +19,53 @@
 </head>
 
 <body>
-  <div class="background">
-    <div class="blur-overlay"></div>
-    <nav class="navbar navbar-expand-lg bg-transparent">
-      <div class="container-fluid">
-        <a class="navbar-brand" id="ujenzi-title" href="{% url 'index' %}"> Ujenzi</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            {% if not user.is_authenticated %}
-            <a class="nav-link" href="{% url 'login' %}">Log In</a>
-            <a class="nav-link" href="{% url 'predict' %}">Predict</a>
-            <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
-            <a class="nav-link" href="{% url 'contacts' %}">Contact Us</a>
-            {% else %}
-            <a class="nav-link" href="{% url 'predict' %}">Predict</a>
-            <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
-            <a class="nav-link" href="{% url 'contacts' %}">Contact Us</a>
-            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-            {% endif %}
+  <div id="body-page">
+    <div class="background">
+      <div class="blur-overlay"></div>
+      <nav class="navbar navbar-expand-lg bg-transparent">
+        <div class="container-fluid">
+          <a class="navbar-brand" id="ujenzi-title" href="{% url 'index' %}"> Ujenzi</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              {% if not user.is_authenticated %}
+              <a class="nav-link" href="{% url 'login' %}">Log In</a>
+              <a class="nav-link" href="{% url 'predict' %}">Predict</a>
+              <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'predict' %}">Predict</a>
+              <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+              <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+              {% endif %}
+            </div>
           </div>
         </div>
+      </nav>
+      {% block body %}
+      {% endblock %}
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2024 Ujenzi. All Rights Reserved.</p>
+      <div>
+        <div id="svg-container">
+          <a href="mailto:victorkimani77@gmail.com" class="svg-icon">
+            <?xml version="1.0" ?><svg height="1.5rem" id="Layer_1" style="enable-background:new 0 0 56.7 56.7;" version="1.1" viewBox="0 0 56.7 56.7" width="1.5rem" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path d="M53.1719,14.5953l0.0011-0.0011l-0.0011,0.0008v-1.184c0-2.2468-1.8384-4.0852-4.0853-4.0852l-0.0012,0.0011l-0.0024,0.0018  l0.0036-0.0029H7.3962l0.0161,0.0131l-0.0161-0.012c-2.2468,0-4.0853,1.8384-4.0853,4.0853v27.9073  c0,2.2468,1.8384,4.0851,4.0853,4.0851h1.4543h38.6578v-0.001c4.2856-0.0498,5.5728-1.1102,5.6702-4.0809L53.1719,14.5953z   M46.0429,10.3258L28.1753,23.487L10.4239,10.3258H46.0429z M9.8608,20.5521l16.5508,11.4004l0.0166,0.0115L9.8513,43.4907  L9.8608,20.5521z M10.2886,44.4046l17.0151-11.8314l0.2985,0.2077c0.1716,0.1194,0.3714,0.1792,0.5712,0.1792  c0.1982,0,0.8773-0.39,0.8773-0.39l17.0197,11.8345H10.2886z M46.4973,43.4836L29.9305,31.9641l9.2394-6.3642l7.3274-5.0472V43.4836  z"/></svg>
+          </a>
+            
+          <a href="https://www.linkedin.com/in/victorkimani77/" class="svg-icon" target="_blank" rel="noopener">
+            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height="1.5rem" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 512 512" width="1.5rem" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M256,0c141.29,0 256,114.71 256,256c0,141.29 -114.71,256 -256,256c-141.29,0 -256,-114.71 -256,-256c0,-141.29 114.71,-256 256,-256Zm-80.037,399.871l0,-199.921l-66.464,0l0,199.921l66.464,0Zm239.62,0l0,-114.646c0,-61.409 -32.787,-89.976 -76.509,-89.976c-35.255,0 -51.047,19.389 -59.889,33.007l0,-28.306l-66.447,0c0.881,18.757 0,199.921 0,199.921l66.446,0l0,-111.65c0,-5.976 0.43,-11.95 2.191,-16.221c4.795,-11.935 15.737,-24.299 34.095,-24.299c24.034,0 33.663,18.34 33.663,45.204l0,106.966l66.45,0Zm-272.403,-296.321c-22.74,0 -37.597,14.95 -37.597,34.545c0,19.182 14.405,34.544 36.717,34.544l0.429,0c23.175,0 37.6,-15.362 37.6,-34.544c-0.43,-19.595 -14.424,-34.545 -37.149,-34.545Z"/></svg>
+          </a>
+        </div>
       </div>
-    </nav>
-    {% block body %}
-    {% endblock %}
-    
+    </footer>
   </div>
+
   {% block script %}
   {% endblock %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
