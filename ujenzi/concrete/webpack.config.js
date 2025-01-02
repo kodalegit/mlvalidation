@@ -6,6 +6,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'static/concrete/js'),
+    clean: true,
   },
   module: {
     rules: [
