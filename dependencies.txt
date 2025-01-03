@@ -16,3 +16,33 @@ nvm install --lts
 (cut away .env outside root dir)
 use npx webpack to bundle react js then collectstatic before deployment
 gcloud app deploy --no-cache
+
+<----pyenv---->
+Install deps:
+    sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+Install pyenv:
+    curl https://pyenv.run | bash
+Update your shell configuration: Add the following lines to your ~/.bashrc:
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+
+    Then reload shell:
+        source ~/.bashrc
+
+Usage:
+    pyenv virtualenv 3.11.6 my_project_env
+    cd /path/to/your/project
+    pyenv local my_project_env
+    pyenv deactivate (or exit project directory)
+
+
+
+
+
+
+
